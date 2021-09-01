@@ -26,11 +26,7 @@ def predict():
 
         img_bytes = file.read()
         img = Image.open(io.BytesIO(img_bytes))
-        results = model(img, size=640)
-
-        # for debugging
-        # data = results.pandas().xyxy[0].to_json(orient="records")
-        # return data
+        results = model(img, size=416)
 
         results.render()  # updates results.imgs with boxes and labels
         for img in results.imgs:
@@ -42,11 +38,6 @@ def predict():
 
     return render_template("index.html")
 
-
-#@app.route('/uploads/<filename>')
-#def send_uploaded_file(filename=''):
-#    from flask import send_from_directory
-#    return send_from_directory(app.config["IMAGE_UPLOADS"], filename)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Flask app exposing yolov5 models")
