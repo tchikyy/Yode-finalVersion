@@ -6,15 +6,14 @@ import argparse
 import io
 import os
 from PIL import Image
+import base64 
+from flask_ngrok import run_with_ngrok
 
 import torch
 from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
-
-
-app.config["IMAGE_UPLOADS"] = "C:/Users/lenovo/Desktop/test_2/static/images/"
-
+run_with_ngrok(app) 
 
 @app.route("/", methods=["GET", "POST"])
 def predict():
@@ -36,16 +35,18 @@ def predict():
         results.render()  # updates results.imgs with boxes and labels
         for img in results.imgs:
             img_base64 = Image.fromarray(img)
-            img_base64.save("static/images/image0.jpg", format="JPEG")
-        return render_template("index.html", uploaded_image=file.filename)
+            img_byte_arr = io.BytesIO()
+            img_base64.save(img_byte_arr, format='JPEG')
+            imgg = base64.encodebytes(img_byte_arr.getvalue()).decode('ascii')
+        return render_template("index.html", img_data=imgg)
 
     return render_template("index.html")
 
 
-@app.route('/uploads/<filename>')
-def send_uploaded_file(filename=''):
-    from flask import send_from_directory
-    return send_from_directory(app.config["IMAGE_UPLOADS"], filename)
+#@app.route('/uploads/<filename>')
+#def send_uploaded_file(filename=''):
+#    from flask import send_from_directory
+#    return send_from_directory(app.config["IMAGE_UPLOADS"], filename)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Flask app exposing yolov5 models")
@@ -53,7 +54,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     model = torch.hub.load(
-        "ultralytics/yolov5", "yolov5s", pretrained=True, force_reload=True
+        "ultralytics/yolov5", "custom", path="best.pt", force_reload=True
     ).autoshape()  # force_reload = recache latest code
     model.eval()
     app.run()  # debug=True causes Restarting with stat
