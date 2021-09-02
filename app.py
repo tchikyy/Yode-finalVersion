@@ -40,7 +40,8 @@ def predict():
 
 @app.route("/feed", methods=["POST"])
 def feedback():
-    return "hey";
+    t="thnx for the feed-back :)"
+    return render_template("index.html", text=t);
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Flask app exposing yolov5 models")
