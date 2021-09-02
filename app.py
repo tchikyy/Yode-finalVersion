@@ -38,6 +38,9 @@ def predict():
 
     return render_template("index.html")
 
+@app.route("/feed", methods=["POST"])
+def feedback():
+    return "hey";
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Flask app exposing yolov5 models")
