@@ -11,37 +11,74 @@ from flask_ngrok import run_with_ngrok
 
 import torch
 from flask import Flask, render_template, request, redirect
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 run_with_ngrok(app) 
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///feedBack.sqlite3'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+class feedBack(db.Model):
+  id = db.Column(db.Integer,  primary_key=True)
+  text = db.Column(db.Text)
+  name = db.Column(db.Text)
+  email = db.Column(db.Text)
+
+  def __init(self, text, name, mail):
+    self.text = text
+    self.name = name
+    self.mail = mail
+
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route("/", methods=["GET", "POST"])
 def predict():
     if request.method == "POST":
+      formid = request.args.get('formid', 1, type=int)
+      if formid == 1:
         if "file" not in request.files:
             return redirect(request.url)
         file = request.files["file"]
         if not file:
             return
+        if file.filename == '':
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+          img_bytes = file.read()
+          img = Image.open(io.BytesIO(img_bytes))
+          results = model(img, size=416)
 
-        img_bytes = file.read()
-        img = Image.open(io.BytesIO(img_bytes))
-        results = model(img, size=416)
+          results.render()  # updates results.imgs with boxes and labels
+          for img in results.imgs:
+              img_base64 = Image.fromarray(img)
+              img_byte_arr = io.BytesIO()
+              img_base64.save(img_byte_arr, format='JPEG')
+              imgg = base64.encodebytes(img_byte_arr.getvalue()).decode('ascii')
+          return render_template("index.html", img_data=imgg)
+        
+        else:
+          return redirect(request.url)
+      if formid == 2:
+        name = request.form.get("y")
+        email = request.form.get("x")
+        text = request.form.get("z")
 
-        results.render()  # updates results.imgs with boxes and labels
-        for img in results.imgs:
-            img_base64 = Image.fromarray(img)
-            img_byte_arr = io.BytesIO()
-            img_base64.save(img_byte_arr, format='JPEG')
-            imgg = base64.encodebytes(img_byte_arr.getvalue()).decode('ascii')
-        return render_template("index.html", img_data=imgg)
+        feed_back = feedBack(name=name, email=email, text=text)
+        db.session.add(feed_back)
+        db.session.commit()
+
+        t="thnx for the feed-back :)"
+        return render_template("index.html", text=t);
+        
 
     return render_template("index.html")
-
-@app.route("/feed", methods=["POST"])
-def feedback():
-    t="thnx for the feed-back :)"
-    return render_template("index.html", text=t);
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Flask app exposing yolov5 models")
@@ -52,4 +89,5 @@ if __name__ == "__main__":
         "ultralytics/yolov5", "custom", path="best.pt", force_reload=True
     ).autoshape()  # force_reload = recache latest code
     model.eval()
+    db.create_all()
     app.run()  # debug=True causes Restarting with stat
