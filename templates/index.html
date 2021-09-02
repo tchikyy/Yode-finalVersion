@@ -51,7 +51,7 @@
             <input type="file" accept="image/*" id="inputfile" name="file" onchange="loadFile(event)">
             <label for="inputfile">Choose an image ...</label>
             
-            <div id="result"><img class="enlarge" id="img-result" src="data:image/jpeg;base64,{{ img_data }}" alt=""></div>
+            <div id="result"><img class="enlarge" id="img-result" src="{{ url_for('send_uploaded_file', filename=predict }}" alt=""></div>
             <button id="btn" type="submit">submit</button>
         </form>
 
@@ -87,14 +87,78 @@
 
     <!-- this is the metrics part -->
     
-    <div id="metric-box1" class="metric-box">
+    <!-- <div id="metric-box1" class="metric-box">
         <div class="metric" style="margin-left: 9px;"><h1 class="fade-up">87%</h1><p class="fade-up">map_0.95</p></div><div class="metric"><h1 class="fade-up">98%</h1><p class="fade-up">map_0.5</p></div><div class="metric"><h1 class="fade-up">85%</h1><p class="fade-up">precision</p></div><div class="metric"><h1 class="fade-up">5%</h1><p class="fade-up">loss</p></div>
+    </div> -->
+
+    <!-- this is the question's part -->
+
+    <div id="questions">
+
+        <h3 id="questions-h3">FAQ</h3>
+        <h2 id="questions-h2">avez-vous des questions ?</h2>
+
+        <div class="question-container">
+            <div class="quest">
+                <p onclick="onClick(this.id)" id="1" class="question">question 1
+                    <i id="down1" class="fas fa-chevron-down"></i>
+                </p>
+                <div class="answer">answer 1</div>
+            </div>
+        </div>
+        <div class="question-container">
+            <div class="quest">
+                <p onclick="onClick(this.id)" id="2" class="question">question 2
+                    <i id="down1" class="fas fa-chevron-down"></i>
+                </p>
+                <div class="answer">answer 2</div>
+            </div>
+        </div>
+        <div class="question-container">
+            <div class="quest">
+                <p onclick="onClick(this.id)" id="3" class="question">question 3
+                    <i id="down1" class="fas fa-chevron-down"></i>
+                </p>
+                <div class="answer">answer 3</div>
+            </div> 
+        </div>
+        <div class="question-container">
+            <div class="quest">
+                <p onclick="onClick(this.id)" id="4" class="question">question 4
+                    <i id="down1" class="fas fa-chevron-down"></i>
+                </p>
+                <div class="answer">answer 4</div>
+            </div>
+        </div>
+
     </div>
 
     <!-- this is the framework part -->
 
     <div id="metric-box2" class="metric-box">
-        <div class="metric"><img id="html" src="../static/images/html.png" alt="html"><p class="name">Html</p><p class="lorem fade-up">Est le langage de balisage conçu pour représenter cette pages web. Ce langage permet d’écrire de l’hypertexte, d’où son nom, de structurer sémantiquement la page, de mettre en forme le contenu</p></div><div class="metric"><img id="css" src="../static/images/css.png" alt="css"><p class="name">Css</p><p class="lorem fade-up">CSS forment un langage informatique qui décrit la présentation de documents HTML et XML.</p></div><div class="metric"><img id="flask" src="../static/images/flask.png" alt="flask"><p class="name">Flask</p><p class="lorem fade-up">Flask est un micro framework open source pour le développement web en Python. Il est classé comme un micro-cadre car il est très léger. Ce langage définit le backend de cette page web</p></div>
+        <div class="metric fade-in2"><img id="html" src="../static/images/html.png" alt="html"><p class="name">Html</p><p class="lorem">Est le langage de balisage conçu pour représenter cette pages web. Ce langage permet d’écrire de l’hypertexte, d’où son nom, de structurer sémantiquement la page, de mettre en forme le contenu</p></div><div class="metric"><img id="css" src="../static/images/css.png" alt="css"><p class="name">Css</p><p class="lorem">CSS forment un langage informatique qui décrit la présentation de documents HTML et XML.</p></div><div class="metric fade-in"><img id="flask" src="../static/images/flask.png" alt="flask"><p class="name">Flask</p><p class="lorem">Flask est un micro framework open source pour le développement web en Python. Il est classé comme un micro-cadre car il est très léger. Ce langage définit le backend de cette page web</p></div>
+    </div>
+
+    <!-- this is the feed back part -->
+
+    <div id="feed-back">
+        <form id="all" method="POST" action="/" enctype="text/plain">
+            <h3>Give us your feed back!</h3>
+            <div id="feed">
+                <div id="info">
+                    <label for="y">Your Name</label>
+                    <input type="text" name="y" placeholder="Enter your name ...">
+                    <label for="x">Your Email</label>
+                    <input type="email" name="x" style="margin-bottom: 0;" placeholder="Enter your @email ...">
+                
+                </div>
+                <div id="text">
+                    <label for="z">Your Message</label>
+                    <input type="text" name="z" placeholder="Write your feed back ...">
+                </div>
+            </div>
+            <input id="sub" type="submit">
+        </form>
     </div>
     
     <!-- this is the footer part -->
@@ -102,6 +166,9 @@
     <footer>
         <p>This web-app is made for study purposes</p>
     </footer>
+
+
+
 
     <!-- Scripts -->
 
@@ -117,6 +184,7 @@
     <!-- this Script is for the fade in effect -->
 
     <script src="../static/app.js"></script>
+    <script src="https://kit.fontawesome.com/7bde2991a9.js" crossorigin="anonymous"></script>
 
 </body>
 </html>
