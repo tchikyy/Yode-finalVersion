@@ -47,7 +47,7 @@
             <h2 class="fade-up">Select an image and observe the real computer vision</h2>
         </div>
 
-        <form method="POST" enctype="multipart/form-data"> 
+        <form method="POST" action="{{ url_for('predict',formid=1) }}" enctype="multipart/form-data"> 
             <input type="file" accept="image/*" id="inputfile" name="file" onchange="loadFile(event)">
             <label for="inputfile">Choose an image ...</label>
             
