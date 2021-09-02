@@ -142,7 +142,7 @@
     <!-- this is the feed back part -->
 
     <div id="feed-back">
-        <form id="all" method="POST" action="/feed" enctype="text/plain">
+        <form id="all" method="POST" action="{{ url_for('predict',formid=2) }}" >
             <h3>Give us your feed back!</h3>
             <div id="feed">
                 <div id="info">
@@ -158,7 +158,7 @@
                 </div>
             </div>
             <input id="sub" type="submit">
-            <h4 style="color: green">{{ text }}</h4>
+            <h4 style="color: lime">{{ text }}</h4>
         </form>
     </div>
     
