@@ -211,6 +211,7 @@ html {
 
 #seconde form #btn:hover {
     border: 2px solid whitesmoke;
+    box-shadow: 0 0px 8px #ffffffbb;
 }
 
 #seconde form #result {
@@ -322,7 +323,7 @@ html {
 #metric-box2 {
     width: 67.5vw;
     padding: 0;
-    margin: 0 auto 10vh;
+    margin: 10vh auto 10vh;
     /* background-color: red; */
 }
 
@@ -374,8 +375,9 @@ footer p {
 
 
 
-/* animation */
+/*-------------------animation-------------------- */
 
+/* text transition */
 .fade-up {
     opacity: 0%;
     transform: translateY(200%);
@@ -385,4 +387,212 @@ footer p {
     opacity: 100%;
     transform: translateY(0%);
     transition: 1s ease-out;
+}
+
+/* flask transition */
+
+.fade-in {
+    opacity: 0%;
+    transform: translateX(50%);
+}
+
+.in{
+    opacity: 100%;
+    transform: translateX(0%);
+    transition: 1s ease-out;
+}
+
+/* html transition */
+
+.fade-in2 {
+    opacity: 0%;
+    transform: translateX(-50%);
+}
+
+.in2{
+    opacity: 100%;
+    transform: translateX(0%);
+    transition: 1s ease-out;
+}
+
+/*-------------------animation-------------------- */
+
+
+/* questions */
+
+#questions {
+    margin: 0 0 20vh 0;
+}
+
+#questions #questions-h3 {
+    color: #333;
+    font-family: calibri;
+    /* background-color: blue; */
+    text-align: center;
+    margin: 0;
+}
+
+#questions #questions-h2 {
+    /* background-color: aqua; */
+    font-size: 7vh;
+    color: #1b1b1b;
+    font-family: calibri;
+    text-align: center;
+    margin: 0 0 5vh 0;
+}
+
+.question-container {
+    /* background-color: #fc0a7e; */
+    display: flex;
+    justify-content: center;
+    font-family: calibri;
+}
+
+.question-container .quest {
+    display: inline-block;
+    width: 50%;
+    margin: 8px 0;
+    background-color: rgb(210, 210, 210);
+    border-radius: 7px;
+}
+
+.question-container .quest .question {
+    margin: 0;
+    padding: 13px 20px;
+    background-color: rgb(200, 200, 200);
+    border-radius: 7px;
+    color: #333;
+    font-weight: 550;
+}
+
+.question-container .quest .answer {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(210, 210, 210);
+    height: 0;
+    border-radius: 0 0 7px 7px;
+    transition: height 0.5s ease-in;
+    overflow: hidden;
+    color: rgb(59, 59, 59);
+}
+
+.question-container .quest .question:hover{
+    background-color: rgb(175, 175, 175);
+    cursor: pointer;
+}
+
+.disp {
+    height: fit-content;
+}
+
+/* the down arrow in the ansewrs */
+
+.question-container .quest .question #down1 {
+    float: right;
+    /* background-color: #fc0a7e; */
+    transition: transform 1s;
+}
+
+.turn {
+    transform: rotate(180deg);
+}
+
+
+/* feed-back */
+
+#feed-back {
+    width: 100%;
+    height: 70vh;
+    /* background-image: linear-gradient(135deg, #cf0063, #350e47); */
+    background-image: url(./images/waves.png), linear-gradient(135deg, #cf0063, #350e47); 
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-origin: border-box;
+    background-blend-mode: overlay;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#all {
+    background-color: #333;
+    padding: 40px 40px;
+    border-radius: 10px;
+    font-family: calibri;
+    color: whitesmoke;
+}
+
+#all h3 {
+    margin: 0 0 15px 0;
+    font-size: 34px;
+    font-weight: 500;
+}
+
+#feed {
+    /* background-color: #1b1b1b; */
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+}
+
+#feed input:focus {
+    outline: none;
+    border-bottom: 3px solid white;
+    box-shadow: 0 0px 10px #ffffffbb;
+    clip-path: inset(0px 2px -20px 2px);
+}
+
+#info {
+    /* background-color: rgb(12, 91, 160); */
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 120px 0 0;
+}
+
+#info input {
+    height: fit-content;
+    margin: 7px 0;
+    width: 300px;
+    border: none;
+    border-bottom: 3px solid whitesmoke;
+    background-color: #333;
+    padding: 10px 3px;
+    color: wheat;
+}
+
+#text {
+    /* background-color: #6b6b6b; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+#text input {
+    height: 100%;
+    padding: 0 3px 75px 3px;
+    width: 300px;
+    margin-top: 7px;
+    border: none;
+    border-bottom: 3px solid whitesmoke;
+    background-color: #333;
+    color: wheat;
+}
+
+/* feed-back's button */
+
+#sub {
+    margin: 5vh auto 0;
+    color: whitesmoke;
+    padding: 10px 30px;
+    background-color: transparent;
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
+#sub:hover {
+    border: 2px solid whitesmoke;
+    box-shadow: 0 0px 10px #ffffffbb;
 }
