@@ -361,12 +361,28 @@ footer{
     font-family: calibri;
     font-size: large;
     color: white;
+    padding: 20px 0 40px 0 ;
 }
 
 footer p {
-    padding: 20px;
+    background-color: #333;
     display: inline-block;
-    margin: auto ;
+    margin: 10px auto 30px ;
+    color: gray;
+    font-size: 36px;
+    padding: 20px;
+    border-radius: 100px;
+}
+
+footer div a {
+    color: gray;
+    padding: 0 10px;
+    font-size: smaller;
+    text-decoration: none;
+}
+
+footer div a:hover {
+    color: rgb(212, 212, 212);
 }
 
 .enlarge:hover {
