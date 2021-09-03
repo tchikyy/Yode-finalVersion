@@ -52,7 +52,7 @@ def predict():
             return redirect(request.url)
         if file and allowed_file(file.filename):
           img_bytes = file.read()
-	  img_before = io.BytesIO(img_bytes)
+          img_before = io.BytesIO(img_bytes)
           img = Image.open(img_before)
           results = model(img, size=416)
 
