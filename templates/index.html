@@ -100,34 +100,56 @@
 
         <div class="question-container">
             <div class="quest">
-                <p onclick="onClick(this.id)" id="1" class="question">question 1
+                <p onclick="onClick(this.id)" id="1" class="question">
+                  what type of object detection architecture is used ?
                     <i id="down1" class="fas fa-chevron-down"></i>
                 </p>
-                <div class="answer">answer 1</div>
+                <div class="answer">yolov5s. In this web app we used the
+                   yolov5s architecture for it's speed, model size, and
+                   weight file size. </div>
             </div>
         </div>
         <div class="question-container">
             <div class="quest">
-                <p onclick="onClick(this.id)" id="2" class="question">question 2
+                <p onclick="onClick(this.id)" id="2" class="question">
+                  Can the model detect sign's in video's ?
                     <i id="down1" class="fas fa-chevron-down"></i>
                 </p>
-                <div class="answer">answer 2</div>
+                <div class="answer">Yes, you can insert a video and send it 
+                  throught the model and you will recieve the final video 
+                  with the bounding boxs. just like the images, 
+                  we advice you to use video's with size of 416x416 px
+                  or close because the model is trained on images with 
+                  this size. </div>
             </div>
         </div>
         <div class="question-container">
             <div class="quest">
-                <p onclick="onClick(this.id)" id="3" class="question">question 3
+                <p onclick="onClick(this.id)" id="3" class="question">
+                  What is the best image size to achieve high precision ?
                     <i id="down1" class="fas fa-chevron-down"></i>
                 </p>
-                <div class="answer">answer 3</div>
+                <div class="answer">416x416 px. Is the best image size to 
+                  submit because our model (yolov5s) is trained on an 
+                  augmented data with 15000 images all with the same size 
+                  416 by 416. You can submit images of all sizes, but we 
+                  advises you to use image size close to 416x416. </div>
             </div> 
         </div>
         <div class="question-container">
             <div class="quest">
-                <p onclick="onClick(this.id)" id="4" class="question">question 4
+                <p onclick="onClick(this.id)" id="4" class="question">
+                  Can the model detect sign's in video's ?
                     <i id="down1" class="fas fa-chevron-down"></i>
                 </p>
-                <div class="answer">answer 4</div>
+                <div class="answer">Yes, you can insert a video andthe app will
+                   send it 
+                  throught the model and you will recieve the final video 
+                  with the bounding boxs. just like the images, 
+                  we advice you to use video's with size of 416x416 px
+                  or close because the model is trained on images with 
+                  this size.
+                </div>
             </div>
         </div>
 
@@ -158,7 +180,7 @@
                 </div>
             </div>
             <input id="sub" type="submit">
-            <h4 style="color: lime">{{ text }}</h4>
+            <h4 style="color: {{ color }}; margin: 10px 0 0 0;">{{ text }}</h4>
         </form>
     </div>
     
@@ -187,5 +209,12 @@
     <script src="../static/app.js"></script>
     <script src="https://kit.fontawesome.com/7bde2991a9.js" crossorigin="anonymous"></script>
 
+    {% if scrollToAnchor %}
+      <script>
+          document.addEventListener("DOMContentLoaded", function() {
+          document.location.hash = '#{{ scrollToAnchor }}';
+      });
+      </script>
+    {% endif %}
 </body>
 </html>
