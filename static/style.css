@@ -434,6 +434,11 @@ footer p {
 
 #questions #questions-h2 {
     /* background-color: aqua; */
+    background-image: linear-gradient(135deg, #f02c8a, #903bb8);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
     font-size: 7vh;
     color: #1b1b1b;
     font-family: calibri;
