@@ -61,7 +61,7 @@ def predict():
               img_byte_arr = io.BytesIO()
               img_base64.save(img_byte_arr, format='JPEG')
               imgg = base64.encodebytes(img_byte_arr.getvalue()).decode('ascii')
-          return render_template("index.html", img_data=imgg)
+          return render_template("index.html", img_data=imgg, scrollToAnchor="seconde")
         
         else:
           return redirect(request.url)
@@ -70,12 +70,19 @@ def predict():
         email = request.form.get("x")
         text = request.form.get("z")
 
-        feed_back = feedBack(name=name, email=email, text=text)
-        db.session.add(feed_back)
-        db.session.commit()
+        if name == '': 
+          return render_template("index.html", text="you forgot your name :(", color="red", scrollToAnchor="feed-back");
+        elif text == '':
+          return render_template("index.html", text="you forgot your opinion :(", color="red", scrollToAnchor="feed-back");
+        elif email == '':
+          return render_template("index.html", text="you forgot your email :(", color="red", scrollToAnchor="feed-back");
+        else:
+          feed_back = feedBack(name=name, email=email, text=text)
+          db.session.add(feed_back)
+          db.session.commit()
 
-        t="thnx for the feed-back :)"
-        return render_template("index.html", text=t);
+          t="thnx for the feed-back :)"
+          return render_template("index.html", text=t, color="lime", scrollToAnchor="feed-back");
         
 
     return render_template("index.html")
