@@ -24,11 +24,11 @@ to run this flask app in google colab follow these steps:
       
 - when you run the commande '!python app.py', a link of the flask_ngrok server will pop up 
 
-      <img src="static/Capture1.PNG" alt="link">
+<img src="static/Capture1.PNG" alt="link">
       
 - follow the link and the app will be up and running
 
-      <img src="static/Capture3.PNG" alt="site">
+<img src="static/Capture3.PNG" alt="site">
 
 ## Locally
 
