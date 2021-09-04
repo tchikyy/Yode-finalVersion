@@ -16,9 +16,9 @@ to run this flask app in google colab follow these steps:
       https://colab.research.google.com/drive/1qPk_sMh2YWuRPb2Vhql6cSBoZH4ZWgFk
 - run the already defined instructions in order 
       
-      '!git clone https://github.com/tchikyy/YoDe-finalversion-V2.git'
+      '!git clone https://github.com/tchikyy/YoDe-finalVersion.git'
       
-      '%cd YoDe-finalversion-V2/'
+      '%cd YoDe-finalVersion/'
       '!pip install flask_ngrok'
       '!pip install flask_sqlalchemy'
       
