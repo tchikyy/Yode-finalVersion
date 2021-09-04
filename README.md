@@ -4,6 +4,8 @@ This repo contains example apps for exposing the [yolo5](https://github.com/ultr
 
 ## Web app
 Simple app consisting of a form where you can upload an image, and see the inference result of the model in the browser.
+<h3> This app is based on the torch.hub.load instruction to fatch the model and run inference </h3>
+<h4> this app run inference !Only on images </h4>
 
 ## Type of execution 
 
