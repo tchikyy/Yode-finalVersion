@@ -38,12 +38,30 @@ prerequirements:
 
 to run this flask app in locally follow these steps:
 
-- install virtualenv in the cmd using the commande '$pip install virtualenv'
+- install virtualenv in the cmd using the commande 
+
+      '$pip install virtualenv'
+      
 - position the commande line in the Yode project folder (the main folder containing app.py , best.pt ... ect.)
-- create a virtual env using the commande '$virtualenv env'
-- activate the virtual envirenement using the commande 'env\Scripts\activate.bat' --> for windows // 'env/bin/activate' --> for macos)
-- install the requirements using '$pip install -r requirements.txt'
+
+      '$cd YoDe-final'
+- create a virtual env using the commande 
+
+      '$virtualenv env'
+      
+- activate the virtual envirenement using the commande 
+
+      'env\Scripts\activate.bat --> for windows'
+      'env/bin/activate --> for macos'
+      
+- install the requirements using 
+
+      '$pip install -r requirements.txt'
+      
 - remove the instruction run_ngrok(app) in the app.py file (on line .)
-- run the app using the commande '$python app.py --port 5000'
+- run the app using the commande 
+
+      '$python app.py --port 5000'
+      
 - follow the link https://localhost/5000/
 
