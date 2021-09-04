@@ -13,7 +13,7 @@ Simple app consisting of a form where you can upload an image, and see the infer
 to run this flask app in google colab follow these steps:
 
 - follow this link for the google colab notebook <br>
-      https://colab.research.google.com/drive/1qPk_sMh2YWuRPb2Vhql6cSBoZH4ZWgFk
+      https://colab.research.google.com/drive/1qPk_sMh2YWuRPb2Vhql6cSBoZH4ZWgFk?usp=sharing
 - run the already defined instructions in order 
       
       '!git clone https://github.com/tchikyy/YoDe-finalVersion.git'
