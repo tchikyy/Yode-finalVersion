@@ -10,7 +10,7 @@ import base64
 from flask_ngrok import run_with_ngrok
 
 import torch
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -20,6 +20,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///feedBack.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+
+class IMG(db.Model):
+  id = db.Column(db.Integer,  primary_key=True)
+  rendered_data = db.Column(db.Text, nullable=False)
+  filename = db.Column(db.Text, nullable=False)
+
+  def __init(self, rendered_data, filename):
+    self.rendered_data = rendered_data
+    self.filename = filename
+
 
 class feedBack(db.Model):
   id = db.Column(db.Integer,  primary_key=True)
@@ -47,7 +57,7 @@ def predict():
             return redirect(request.url)
         file = request.files["file"]
         if not file:
-            return
+            return redirect(request.url)
         if file.filename == '':
             return redirect(request.url)
         if file and allowed_file(file.filename):
@@ -62,7 +72,12 @@ def predict():
               img_byte_arr = io.BytesIO()
               img_base64.save(img_byte_arr, format='JPEG')
               imgg = base64.encodebytes(img_byte_arr.getvalue()).decode('ascii')
-          return render_template("index.html", img_data=imgg, scrollToAnchor="seconde")
+
+              image_save = IMG(rendered_data = imgg, filename=file.filename)
+              db.session.add(image_save)
+              db.session.commit()
+
+          return render_template("index.html", img_data=imgg, scrollToAnchor="seconde", filename=file.filename, download_text="Download")
         
         else:
           return redirect(request.url)
@@ -87,6 +102,13 @@ def predict():
         
 
     return render_template("index.html")
+
+
+@app.route('/<string:filename>')
+def display(filename):
+  get_pic = IMG.query.filter_by(filename=filename).first()
+  return '<img src="data:image/jpeg;base64,'+get_pic.rendered_data+'" width="500px">'
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Flask app exposing yolov5 models")
