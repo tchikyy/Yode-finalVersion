@@ -50,8 +50,12 @@
         <form method="POST" action="{{ url_for('predict',formid=1) }}" enctype="multipart/form-data"> 
             <input type="file" accept="image/*" id="inputfile" name="file" onchange="loadFile(event)">
             <label for="inputfile">Choose an image ...</label>
-            
-            <div id="result"><img class="enlarge" id="img-result" src="data:image/jpeg;base64,{{ img_data }}" alt=""></div>
+            <!-- {{ url_for('display', filename= filename) }} -->
+            <div id="result" style="text-align: center">
+            <a href="{{ url_for('display', filename= filename) }}" target="_blank"><img class="enlarge" id="img-result" src="data:image/jpeg;base64,{{ img_data }}" alt=""></a>
+            <br>
+            <a id="download" href="data:image/jpeg;base64,{{ img_data }}" download>{{ download_text }}</a>
+            </div>
             <button id="btn" type="submit">submit</button>
         </form>
 
