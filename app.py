@@ -45,6 +45,7 @@ class feedBack(db.Model):
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
+
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -64,7 +65,21 @@ def predict():
           img_bytes = file.read()
           img_before = io.BytesIO(img_bytes)
           img = Image.open(img_before)
-          results = model(img, size=416)
+
+          option = request.form['select']
+          print(option)
+          s=0
+          m=0
+          l=0
+          if option == 'yolov5m':
+            m=1
+            results = modelm(img, size=416)
+          elif option =='yolov5l':
+            l=1
+            results = modell(img, size=416)
+          else:
+            s=1
+            results = model(img, size=416)
 
           results.render()  # updates results.imgs with boxes and labels
           for img in results.imgs:
@@ -77,7 +92,20 @@ def predict():
               db.session.add(image_save)
               db.session.commit()
 
-          return render_template("index.html", img_data=imgg, scrollToAnchor="seconde", filename=file.filename, download_text="Download")
+          if s == 1:
+            Check = 'checked'
+            Check2 = ''
+            Check3 = ''
+          elif m == 1:
+            Check = ''
+            Check2 = 'checked'
+            Check3 = ''
+          elif l == 1:
+            Check = ''
+            Check2 = ''
+            Check3 = 'checked'
+          
+          return render_template("index.html", img_data=imgg, scrollToAnchor="seconde", filename=file.filename, download_text="Download", check=Check, check2=Check2, check3=Check3 )
         
         else:
           return redirect(request.url)
@@ -101,7 +129,7 @@ def predict():
           return render_template("index.html", text=t, color="lime", scrollToAnchor="feed-back");
         
 
-    return render_template("index.html")
+    return render_template("index.html", check='checked')
 
 
 @app.route('/<string:filename>')
@@ -119,5 +147,16 @@ if __name__ == "__main__":
         "ultralytics/yolov5", "custom", path="best.pt", force_reload=True
     ).autoshape()  # force_reload = recache latest code
     model.eval()
+
+    modelm = torch.hub.load(
+        "ultralytics/yolov5", "custom", path="bestm.pt", force_reload=True
+    ).autoshape()  # force_reload = recache latest code
+    modelm.eval()
+
+    modell = torch.hub.load(
+        "ultralytics/yolov5", "custom", path="bestl.pt", force_reload=True
+    ).autoshape()  # force_reload = recache latest code
+    modell.eval()
+
     db.create_all()
     app.run()  # debug=True causes Restarting with stat
